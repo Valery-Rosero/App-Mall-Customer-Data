@@ -1,6 +1,11 @@
 # Segmentación de clientes con K-Means
 
-Taller final de Minería de Datos. Segmenta a los 200 clientes del *Mall Customers Dataset* con K-Means según su
+Taller Final de **Inteligencia de Negocios y Minería de Datos** · Ingeniería de Software · Universidad Cooperativa de
+Colombia · Docente: Dr. Cristian Camilo Ordoñez Quintero.
+
+**Autores:** Valery Nickol Rosero Molina y Ubeimar Lizardo Yepes Portilla.
+
+Segmenta a los 200 clientes del *Mall Customers Dataset* con K-Means según su
 **ingreso anual** y su **puntaje de gasto**, y despliega el modelo en una aplicación de Streamlit.
 
 ## Resultados
@@ -23,12 +28,15 @@ Taller final de Minería de Datos. Segmenta a los 200 clientes del *Mall Custome
 ## Estructura
 
 ```
-├── Taller_KMeans_Segmentacion.ipynb   # Análisis completo (partes 1 a 7) con las respuestas
-├── app.py                             # Aplicación Streamlit
-├── Mall_Customers.csv                 # Dataset
-├── modelo/kmeans_clientes.joblib      # Escalador + K-Means + perfiles (lo genera el notebook)
+├── Taller_KMeans_Segmentacion.ipynb     # Análisis completo (partes 1 a 7), respuestas e interpretación de cada gráfica
+├── Informe_APA_Segmentacion_KMeans.docx # Informe en normas APA 7
+├── app.py                               # Aplicación Streamlit
+├── Mall_Customers.csv                   # Dataset
+├── modelo/kmeans_clientes.joblib        # Escalador + K-Means + perfiles (lo genera el notebook)
+├── figuras/                             # Gráficas del notebook y capturas de la app
+├── fuentes/Inter.ttf                    # Tipografía Inter (licencia SIL OFL 1.1, ver fuentes/OFL.txt)
 ├── requirements.txt
-└── .streamlit/config.toml
+└── .streamlit/config.toml               # Tema visual de la app
 ```
 
 ## Ejecutar en local
@@ -39,6 +47,11 @@ streamlit run app.py
 ```
 
 ## La aplicación
+
+La interfaz usa la tipografía **Inter**, una paleta de tonos naturales (Sage `#6B7F6E`, Moss `#A7B8A7`, Mist `#D9E1D9`,
+Ivory `#F4EFE8` y Sand `#C9BDAF`), tarjetas redondeadas, pestañas segmentadas e íconos de línea. Los colores de los
+cinco segmentos se validaron para distinguirse también con daltonismo, y cada segmento tiene su propia forma de
+marcador.
 
 - **Clasificar cliente:** se ingresan el ingreso y el gasto del cliente y la app muestra su segmento, las estrategias
   recomendadas y la distancia a cada centroide.
