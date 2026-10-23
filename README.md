@@ -29,7 +29,8 @@ Segmenta a los 200 clientes del *Mall Customers Dataset* con K-Means según su
 
 ```
 ├── Taller_KMeans_Segmentacion.ipynb     # Análisis completo (partes 1 a 7), respuestas e interpretación de cada gráfica
-├── Informe_APA_Segmentacion_KMeans.docx # Informe en normas APA 7
+├── Informe_APA_Segmentacion_KMeans.pdf  # Informe en normas APA 7 (PDF)
+├── Informe_APA_Segmentacion_KMeans.docx # Informe en normas APA 7 (Word)
 ├── app.py                               # Aplicación Streamlit
 ├── Mall_Customers.csv                   # Dataset
 ├── modelo/kmeans_clientes.joblib        # Escalador + K-Means + perfiles (lo genera el notebook)
@@ -59,3 +60,4 @@ marcador.
 - **Método del codo** y **Silueta:** curvas de evaluación para K = 1 a 10.
 - **Datos:** estadísticas descriptivas y correlaciones.
 - **Clasificación masiva:** se sube un CSV y se descarga con el segmento de cada cliente.
+- **Informe:** visor del informe APA en PDF, con descarga en PDF y Word.

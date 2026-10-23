@@ -11,6 +11,9 @@ from sklearn.metrics import davies_bouldin_score, silhouette_score
 
 BASE = Path(__file__).parent
 SEMILLA = 42
+REPOSITORIO = "https://github.com/Valery-Rosero/App-Mall-Customer-Data"
+INFORME_PDF = BASE / "Informe_APA_Segmentacion_KMeans.pdf"
+INFORME_DOCX = BASE / "Informe_APA_Segmentacion_KMeans.docx"
 SIMBOLOS = {"o": "circle", "s": "square", "D": "diamond", "^": "triangle-up", "v": "triangle-down"}
 
 # Paleta Calm: Sage, Moss, Mist, Ivory y Sand, más tintas neutras
@@ -48,6 +51,10 @@ ICONOS = {
     "pulso": '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     "barras": '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
     "check": '<path d="M20 6 9 17l-5-5"/>',
+    "github": '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 '
+              '0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 '
+              '5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
+    "flecha": '<path d="M7 17 17 7"/><path d="M7 7h10v10"/>',
 }
 
 
@@ -69,6 +76,12 @@ st.markdown(f"""
   .encabezado h1 {{ font-weight:300; font-size:2.6rem; letter-spacing:0.02em; margin:0; padding:0; color:{TINTA}; }}
   .encabezado .sub {{ text-transform:uppercase; letter-spacing:0.32em; font-size:0.72rem; color:{TINTA_2};
                       margin-top:0.6rem; }}
+  .repo {{ display:inline-flex; align-items:center; gap:0.55rem; margin-top:1.1rem; padding:0.55rem 1.1rem;
+           border-radius:999px; background:{SUPERFICIE}; color:{TINTA} !important; text-decoration:none !important;
+           font-size:0.9rem; font-weight:500; border:1px solid #DDD5C9; transition:background .2s ease; }}
+  .repo:hover {{ background:{MIST}; }}
+  .pie {{ text-align:center; color:{TINTA_2}; font-size:0.8rem; margin:2.5rem 0 1rem; line-height:1.8; }}
+  .pie a {{ color:{SAGE} !important; font-weight:500; }}
   .etiqueta {{ text-transform:uppercase; letter-spacing:0.2em; font-size:0.7rem; font-weight:500;
                color:{TINTA_2}; margin:0.4rem 0 0.9rem; }}
   .etiqueta b {{ color:{SAGE}; font-weight:600; margin-right:0.5rem; }}
@@ -242,6 +255,8 @@ st.markdown(f"""
   <div class="marca">{icono('bolsa', 24)}</div>
   <h1>Segmentación de clientes</h1>
   <div class="sub">K-Means · Mall Customers · Ingreso y gasto</div>
+  <a class="repo" href="{REPOSITORIO}" target="_blank" rel="noopener">{icono('github', 18)}
+     Ver repositorio en GitHub {icono('flecha', 14)}</a>
 </div>
 """, unsafe_allow_html=True)
 
@@ -253,10 +268,11 @@ st.markdown('<div class="kpis">' + "".join(
     f'<div class="kpi"><div class="ico">{icono(i)}</div><div><div class="lbl">{l}</div>'
     f'<div class="val">{v}</div></div></div>' for i, l, v in kpis) + "</div>", unsafe_allow_html=True)
 
-tab_nuevo, tab_clusters, tab_codo, tab_silueta, tab_datos, tab_lote = st.tabs([
+tab_nuevo, tab_clusters, tab_codo, tab_silueta, tab_datos, tab_lote, tab_informe = st.tabs([
     ":material/person_search: Clasificar cliente", ":material/scatter_plot: Clusters",
     ":material/show_chart: Método del codo", ":material/insights: Silueta",
-    ":material/table_chart: Datos", ":material/upload_file: Clasificación masiva"])
+    ":material/table_chart: Datos", ":material/upload_file: Clasificación masiva",
+    ":material/description: Informe"])
 
 # ------------------------------------------------------------------ clasificar nuevo cliente
 with tab_nuevo:
@@ -438,3 +454,39 @@ with tab_lote:
                 st.download_button("Descargar resultados", lote.to_csv(index=False).encode("utf-8"),
                                    "clientes_segmentados.csv", "text/csv", icon=":material/download:",
                                    type="primary")
+
+# ------------------------------------------------------------------ informe APA
+with tab_informe:
+    with st.container(key="tarjeta_informe"):
+        etiqueta(1, "Informe en normas APA")
+        st.markdown("Documento completo del taller: marco teórico, metodología, respuestas a cada pregunta, "
+                    "interpretación de todas las gráficas, estrategias de negocio, despliegue y referencias.")
+        c_pdf, c_docx, c_repo = st.columns(3)
+        if INFORME_PDF.exists():
+            c_pdf.download_button("Descargar PDF", INFORME_PDF.read_bytes(), INFORME_PDF.name, "application/pdf",
+                                  icon=":material/picture_as_pdf:", type="primary", width="stretch")
+        if INFORME_DOCX.exists():
+            c_docx.download_button(
+                "Descargar Word", INFORME_DOCX.read_bytes(), INFORME_DOCX.name,
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                icon=":material/article:", width="stretch")
+        c_repo.link_button("Ver en GitHub", REPOSITORIO, icon=":material/open_in_new:", width="stretch")
+    with st.container(key="tarjeta_visor"):
+        etiqueta(2, "Vista previa")
+        if INFORME_PDF.exists():
+            try:
+                st.pdf(INFORME_PDF, height=900)
+            except Exception:
+                st.info("El visor no está disponible en este entorno. Descarga el PDF con el botón de arriba.",
+                        icon=":material/info:")
+        else:
+            st.warning("No se encontró el archivo del informe.", icon=":material/warning:")
+
+# ------------------------------------------------------------------ pie de página
+st.markdown(f"""
+<div class="pie">
+  Valery Nickol Rosero Molina · Ubeimar Lizardo Yepes Portilla<br>
+  Inteligencia de Negocios y Minería de Datos · Ingeniería de Software · Universidad Cooperativa de Colombia<br>
+  <a href="{REPOSITORIO}" target="_blank" rel="noopener">Repositorio en GitHub</a>
+</div>
+""", unsafe_allow_html=True)
