@@ -5,6 +5,8 @@ Colombia · Docente: Dr. Cristian Camilo Ordoñez Quintero.
 
 **Autores:** Valery Nickol Rosero Molina y Ubeimar Lizardo Yepes Portilla.
 
+**Aplicación desplegada:** https://app-mall-customer-data-e7v6nnhgmzxqyhvg6fnjms.streamlit.app/
+
 Segmenta a los 200 clientes del *Mall Customers Dataset* con K-Means según su
 **ingreso anual** y su **puntaje de gasto**, y despliega el modelo en una aplicación de Streamlit.
 
